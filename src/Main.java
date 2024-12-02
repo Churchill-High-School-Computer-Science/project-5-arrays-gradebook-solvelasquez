@@ -36,5 +36,9 @@ public class Main {
         Gradebook testBook1 = new Gradebook(data1);
         Gradebook testBook2 = new Gradebook(data2);
 
+        changeGrade grade1 = new changeGrade();
+
+        System.out.println(changeGrade("Borjigin","Homework5", 90));
+
     }
 }
