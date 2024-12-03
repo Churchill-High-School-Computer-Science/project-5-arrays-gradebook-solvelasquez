@@ -18,22 +18,60 @@ public class Gradebook {
 
     public boolean changeGrade(String lastName, String assnName, int newGrade) {
         // Your code here
+        int assignmentIndex = -1;
+        for(int i = 0; i < labels.length; i ++){
+            if(labels[i].equals(assnName)){
+                assignmentIndex = i;
+                break;
+            }
+        }
+        if(assignmentIndex == -1){
+            return false;
+        }
         for(int i = 0; i < book.length; i++){
             if(book[i][0].equals(lastName)){
-                for(int j = 0; j < book[0].length; j++){
-                    if(book[0][j].equals(assnName)){
-                        book[i][j] = String.valueOf(newGrade);
-                        return true;
-                    }
-                }
+                book[i][assignmentIndex] = String.valueOf(newGrade);
+                return true;
             }
         }
         return false;
     }
 
+
     public double findAssignmentAverage(String assnName) {
         // Your code here
-        return -1;
+        int assignmentIndex = -1;
+        for(int i = 0; i < labels.length; i++){
+            if(labels[i].equals(assnName)){
+                assignmentIndex = i;
+                break;
+            }
+        }
+        if(assignmentIndex == -1){
+            System.out.println("Assignment not found.");
+            return -1;
+        }
+
+        double total = 0;
+        int count = 0;
+        for(int i = 0; i < book.length; i++){
+            String grade = book[i][assignmentIndex];
+
+            if(grade != null && !grade.equals("")){
+                boolean isAnum = true;
+                for(int j = 0; j < grade.length(); j ++){
+                    if(!Character.isDigit(grade.charAt(j))){
+                        isAnum = false;
+                        break;
+                    }
+                }
+                if(isAnum){
+                    total += Integer.parseInt(grade);
+                    count++;
+                }
+            }
+        }
+        return count > 0 ? total / count : 0;
     }
 
     public double findStudentAverage(String lastName) {
