@@ -10,7 +10,7 @@ public class Main {
                         "91.0", "89.0", "90.0", "93.0" }
         };
 
-        String[][] data2 = {
+        /* String[][] data2 = {
                 { "Rostov", "Nikolai", "88.0", "92.0", "78.0", "85.0", "80.0", "83.0", "85.0", "90.0", "88.0", "87.0",
                         "85.0", "89.0", "90.0", "86.0" },
                 { "Bolkov", "Andrei", "95.0", "87.0", "89.0", "91.0", "93.0", "90.0", "88.0", "85.0", "92.0", "94.0",
@@ -31,14 +31,21 @@ public class Main {
                         "93.0", "91.0", "92.0", "89.0" },
                 { "Bolkonskaya", "Maria", "85.0", "88.0", "86.0", "84.0", "83.0", "82.0", "87.0", "85.0", "86.0",
                         "88.0", "85.0", "89.0", "88.0", "86.0" }
-        };
+        }; */
 
         Gradebook testBook1 = new Gradebook(data1);
-        Gradebook testBook2 = new Gradebook(data2);
+        // Gradebook testBook2 = new Gradebook(data2);
 
-        changeGrade grade1 = new changeGrade();
+        testBook1.changeGrade("Borjigin", "Homework5", 80);
 
-        System.out.println(changeGrade("Borjigin","Homework5", 90));
+        double average = testBook1.findAssignmentAverage("Homework5");
+        System.out.println("Average for Homework5: " + average);
+
+        double Studentavg = testBook1.findStudentAverage("Borjigin");
+        System.out.println("Weighted avg for the student: "  + Studentavg);
+
+        testBook1.printStudentInfo("Borjigin");
+
 
     }
 }

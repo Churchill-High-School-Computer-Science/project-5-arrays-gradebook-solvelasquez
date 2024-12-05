@@ -32,8 +32,10 @@ public class Gradebook {
             if(book[i][0].equals(lastName)){
                 book[i][assignmentIndex] = String.valueOf(newGrade);
                 return true;
+                
             }
         }
+        
         return false;
     }
 
@@ -68,19 +70,89 @@ public class Gradebook {
                 if(isAnum){
                     total += Integer.parseInt(grade);
                     count++;
+
                 }
             }
         }
         return count > 0 ? total / count : 0;
+
     }
 
     public double findStudentAverage(String lastName) {
         // Your code here
-        return -1;
+        int studentIndex = -1;
+
+        for(int i = 0; i < book.length; i ++){
+            if(book[i][0].equals(lastName)){
+                studentIndex = i;
+                break;
+            }
+        }
+        if(studentIndex == -1){
+            System.out.println("Student not found.");
+            return -1;
+        }
+
+        double testTotal = 0, quizTotal =0, homeworkTotal = 0;
+        int testCount = 0, quizCount = 0, homeworkCount = 0;
+
+        for(int j = 2; j < book[studentIndex].length; j++){
+            String grade = book[studentIndex][j];
+
+            if(grade != null && !grade.equals("")){
+                boolean isDigi = true;
+
+                for(int k = 0; k < grade.length(); k ++){
+                    if(!Character.isDigit(grade.charAt(k))){
+                        isDigi = false;
+                        break;
+                    }
+                }
+
+                if(isDigi){
+                    int numericGrade = Integer.parseInt(grade);
+
+                    if(labels[j].startsWith("Test")){
+                        testTotal += numericGrade;
+                        testCount ++;
+                    }else if(labels[j].startsWith("Quiz")){
+                        quizTotal += numericGrade;
+                        quizCount ++;
+                    }else if(labels[j].startsWith("Homework")){
+                        homeworkTotal += numericGrade;
+                        homeworkCount++;
+                    }
+                }
+            }
+        }
+        double testAverage = (testCount > 0) ? (testTotal / testCount) : 0;
+        double quizAverage = (quizCount > 0) ? (quizTotal / quizCount) : 0;
+        double homeworkAverage = (homeworkCount > 0) ? (homeworkTotal / homeworkCount) : 0;
+
+        return (testAverage * 0.3) + (quizAverage * 0.3) + (homeworkAverage * 0.4);
     }
 
     public void printStudentInfo(String lastName) {
         // Your code here
-    }
+        int studentIndex = -1;
 
+        for(int i = 0; i < book.length; i++){
+            if(book[i][0].equals(lastName)){
+                studentIndex = i;
+                break;
+            }
+        }
+        if(studentIndex == -1){
+            System.out.println("Student does not exist.");
+            return;
+        }
+
+        System.out.println("Student: " + book[studentIndex][0] + ", " + book[studentIndex][1]);
+
+        for(int j = 2; j < book[studentIndex].length; j++){
+            System.out.println(labels[j] + ": " + book[studentIndex][j]);
+        }
+    }
 }
+  
+
